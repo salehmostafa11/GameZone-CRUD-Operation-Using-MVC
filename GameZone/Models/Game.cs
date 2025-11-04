@@ -10,6 +10,6 @@
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
         public Category Category { get; set; } = default!; // -default- will create an object from the type
-        public ICollection<GameDevice> Device { get; set; } = new List<GameDevice>();
+        public ICollection<GameDevice> Devices { get; set; } = new List<GameDevice>();
     }
 }

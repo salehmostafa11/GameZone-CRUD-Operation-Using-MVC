@@ -1,4 +1,6 @@
 
+using GameZone.Services;
+
 namespace GameZone
 {
     public class Program
@@ -14,6 +16,10 @@ namespace GameZone
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") 
                         ?? throw new InvalidOperationException("Invalid Connection String!"));
             });
+
+            builder.Services.AddScoped<ICategoriesService, CategoriesService>();
+            builder.Services.AddScoped<IDevicesService, DevicesService>();
+            builder.Services.AddScoped<IGamesService, GamesService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
