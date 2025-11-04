@@ -1,11 +1,12 @@
 
 using GameZone.Services;
+using System.Threading.Tasks;
 
 namespace GameZone
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -17,10 +18,24 @@ namespace GameZone
                         ?? throw new InvalidOperationException("Invalid Connection String!"));
             });
 
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = false;
+            })
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+            
             builder.Services.AddScoped<ICategoriesService, CategoriesService>();
             builder.Services.AddScoped<IDevicesService, DevicesService>();
             builder.Services.AddScoped<IGamesService, GamesService>();
             var app = builder.Build();
+
+            //seeding roles
+            using (var scope = app.Services.CreateScope())
+            {
+                await RoleSeeder.InitializeRolesAsync(scope.ServiceProvider);
+                await RoleSeeder.SeedAdminAccount(scope.ServiceProvider);
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -35,6 +50,7 @@ namespace GameZone
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

@@ -8,7 +8,7 @@ namespace GameZone.Controllers
         {
             _gamesService = gamesService;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
             var games = _gamesService.GetAllWithCategory();

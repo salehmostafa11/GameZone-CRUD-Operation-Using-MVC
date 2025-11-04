@@ -1,0 +1,25 @@
+﻿@model UserRegisterFormViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<form asp-action="Register">
+    <div asp-validation-summary="All" class="text-danger fs-10"></div>
+    <div data--h-bstatus="0OBSERVED">
+        <label asp-for="@Model.Email" class="form-label mt-4" data--h-bstatus="0OBSERVED"></label>
+        <input asp-for="@Model.Email" class="form-control" aria-describedby="emailHelp" placeholder="Enter Email" data--h-bstatus="0OBSERVED">
+        <span asp-validation-for="@Model.Email" class="text-danger fs-10"></span>
+    </div>
+    <div data--h-bstatus="0OBSERVED">
+        <label asp-for="@Model.Password" class="form-label mt-4" data--h-bstatus="0OBSERVED"></label>
+        <input asp-for="@Model.Password" class="form-control" placeholder="Password" autocomplete="off" data--h-bstatus="0OBSERVED">
+        <span asp-validation-for="@Model.Password" class="text-danger fs-10"></span>
+    </div>
+    <button type="submit" class="btn btn-primary" data--h-bstatus="0OBSERVED">Register</button>
+
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/filesize-validator.js" asp-append-version="true"></script>
+    <script src="~/js/game-form.js" asp-append-version="true"></script>
+}

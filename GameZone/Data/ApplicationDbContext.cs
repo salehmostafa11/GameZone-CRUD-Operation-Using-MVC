@@ -1,6 +1,6 @@
 ﻿namespace GameZone.Data
 {
-    public class ApplicationDbContext:DbContext
+    public class ApplicationDbContext:IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
         {
@@ -12,6 +12,8 @@
         public DbSet<GameDevice> GameDevices { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>()
                 .HasData(new Category[]
                 {
@@ -34,7 +36,6 @@
 
             modelBuilder.Entity<GameDevice>()
                 .HasKey(e => new { e.GameId, e.DeviceId }); // composite key
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

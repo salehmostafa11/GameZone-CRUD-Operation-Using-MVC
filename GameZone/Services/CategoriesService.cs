@@ -1,5 +1,4 @@
-﻿
-namespace GameZone.Services
+﻿namespace GameZone.Services
 {
     public class CategoriesService : ICategoriesService
     {

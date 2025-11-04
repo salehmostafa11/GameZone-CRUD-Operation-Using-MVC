@@ -1,5 +1,4 @@
-﻿
-namespace GameZone.Controllers
+﻿namespace GameZone.Controllers
 {
     public class GamesController : Controller
     {
@@ -14,12 +13,14 @@ namespace GameZone.Controllers
             _gamesService = gamesService;
         }
         [HttpGet]
+        [Authorize(Roles ="Admin")]
         public IActionResult Index()
         {
             var games = _gamesService.GetAllWithCategory();
             return View(games);
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             CreateGameFormViewModel viewmodel = new()
@@ -33,6 +34,7 @@ namespace GameZone.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CreateGameFormViewModel viewmodel)
         {
             if(!ModelState.IsValid)
@@ -60,6 +62,7 @@ namespace GameZone.Controllers
             return NotFound();
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id)
         {
             var game = _gamesService.GetById(id);
@@ -81,6 +84,7 @@ namespace GameZone.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(EditGameFormViewModel model)
         {
             if (!ModelState.IsValid)
@@ -97,6 +101,7 @@ namespace GameZone.Controllers
             return RedirectToAction(nameof(Index));
         }
         //[HttpDelete]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             var isDeleted = _gamesService.Delete(id);

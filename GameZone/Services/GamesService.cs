@@ -1,8 +1,4 @@
-﻿
-
-using GameZone.Models;
-
-namespace GameZone.Services
+﻿namespace GameZone.Services
 {
     public class GamesService : IGamesService
     {

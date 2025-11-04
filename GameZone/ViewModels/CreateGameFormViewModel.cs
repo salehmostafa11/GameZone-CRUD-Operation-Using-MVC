@@ -1,5 +1,4 @@
-﻿
-namespace GameZone.ViewModels
+﻿namespace GameZone.ViewModels
 {
     public class CreateGameFormViewModel:GameFormViewModel
     {
